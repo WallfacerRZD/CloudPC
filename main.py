@@ -12,15 +12,15 @@ your_email_adr = 'xxxxxxx'
 # 口令
 your_password = 'xxxxxxx'
 
-def shot_screen():
+def shoot_screen():
     screen = ImageGrab.grab()
     screen.save(screen_path)
 
 
 def get_mail_count_and_content():
-    email = your_email_adr
+    email = '1048058400@qq.com'
     # 口令
-    password = your_password
+    password = "tuhnimgbsntgbecg"
     # pop服务器
     pop_server = 'pop.qq.com'
     # 连接到pop服务器
@@ -44,8 +44,10 @@ while True:
         match_list = pattern.findall(msg_content)
         instruction = match_list[0].strip() if match_list else ''
         if instruction == 'shotscreen':
-            shot_screen()
+            shoot_screen()
             mail_sender.send(time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time())), 'plain', image_path=screen_path)
+        elif instruction == '':
+            pass
         else:
             print u'未识别的指令'
         old_count = current_count
