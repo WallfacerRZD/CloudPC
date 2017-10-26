@@ -1,6 +1,8 @@
 from VideoCapture import Device
 import time
 import cv2
+
+
 class Camera(object):
     def __init__(self):
         self.camera = Device()
@@ -11,21 +13,16 @@ class Camera(object):
         self.camera.setResolution(300, 200)
         # self.camera.getImage(timestamp=0).resize((self.width, self.height)).save("../web/static/test.jpg", quality=80)
 
+    @staticmethod
+    def frame():
+        camera = cv2.VideoCapture(0)
+        if not camera.isOpened():
+            raise RuntimeError("Can't open camera")
+        while camera.isOpened():
+            ok, frame = camera.read()
+            yield cv2.imencode(".jpg", frame)[1].tobytes()
+
 
 if __name__ == "__main__":
-    # cam = Camera()
-    # while True:
-    #     cam.shot()
-    #     time.sleep(2)
-    #     print 'test'
-    cap = cv2.VideoCapture(0)
-    while cap.isOpened():
-        ok, frame = cap.read()
-        if not ok:
-            break
-        print type(frame)
-        cv2.waitKey(10)
-        cv2.imshow('test', frame)
-    cap.release()
-    cv2.destroyAllWindows()
-
+    camera = Camera()
+    camera.frame()
