@@ -22,63 +22,57 @@ def login():
 
 
 # 实时监控摄像头
-@app.route("/live", methods=["POST", "GET"])
+@app.route("/", methods=["POST", "GET"])
 def live():
-    return render_template("carousel.html")
+    return render_template("index.html")
 
 
 @app.route("/feed_video", methods=["GET"])
 def feed_video():
-    return Response(generate_frame(), mimetype='multipart/x-mixed-replace; boundary=frame')
+    try:
+        return Response(generate_frame(), mimetype='multipart/x-mixed-replace; boundary=frame')
+    except:
+        return ''
+
+
+@app.route('/shot_screen', methods=['GET'])
+def shot_screen():
+    img_stream = Camera.shot_screen()
+    return Response(img_stream, mimetype='image/png')
+
 
 @app.route("/position", methods=["GET", "POST"])
 def position():
     return send_file('./static/position.html')
+
 
 @app.route("/get_position", methods=["GET", "POST"])
 def get_position():
     return render_template('get_position.html')
 
 
+@app.route("/shot_camera", methods=["GET"])
+def shot_camera():
+    img_stream = Camera.shot_camera()
+    return Response(img_stream, mimetype='image/png')
+
 
 def generate_frame():
-    cam = Camera()
+    cam = Camera.frame()
     try:
         while True:
-            frame = cam.frame().next()
+            frame = cam.next()
             yield (b"--frame\r\n" +
                    b"Content-type: image/jpg\r\n\r\n" +
                    frame +
                    b"\r\n")
     except Exception, e:
         print e
-        cam.release_cam()
 
 
 @app.route('/', methods=["GET", "POST"])
 def index():
     return send_file("static/home.html")
-
-
-# ----------------图片------------------
-# @app.route('/static/manager.png', methods=['GET', 'POST'])
-# def manager():
-#     return Response(file('./static/manager.png'), mimetype='image/png')
-#
-#
-# @app.route('/static/task.png', methods=['GET', 'POST'])
-# def task():
-#     return Response(file('./static/manager.png'), mimetype='image/png')
-#
-#
-# @app.route('/static/cmd.png', methods=['GET', 'POST'])
-# def cmd():
-#     return Response(file('./static/cmd.png'), mimetype='image/png')
-#
-#
-# @app.route('/static/camera.png', methods=['GET', 'POST'])
-# def camera():
-#     return Response(file('./static/camera.png'), mimetype='image/png')
 
 
 if __name__ == "__main__":

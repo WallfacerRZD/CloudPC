@@ -1,28 +1,45 @@
 from VideoCapture import Device
 import time
 import cv2
+from PIL import ImageGrab
+from io import BytesIO
 
 
 class Camera(object):
-    def __init__(self):
-        self.width = 1920
-        self.height = 1080
-        self.camera = cv2.VideoCapture(0)
-
-    def release_cam(self):
-        self.camera.release()
 
 
         # def shot(self):
         #     self.camera.setResolution(300, 200)
         # self.camera.getImage(timestamp=0).resize((self.width, self.height)).save("../web/static/test.jpg", quality=80)
+    @staticmethod
+    def frame():
+        camera = cv2.VideoCapture(0)
+        try:
+            if not camera.isOpened():
+                raise RuntimeError("Can't open camera")
+            while camera.isOpened():
+                ok, frame = camera.read()
+                yield cv2.imencode(".png", frame)[1].tobytes()
+        except Exception, e:
+            print str(e)
+            camera.release()
 
-    def frame(self):
-        if not self.camera.isOpened():
+    @staticmethod
+    def shot_screen():
+        screen = ImageGrab.grab()
+        img_io = BytesIO()
+        screen.save(img_io, 'png')
+        img_io.seek(0)
+        return img_io
+
+    @staticmethod
+    def shot_camera():
+        camera = cv2.VideoCapture(0)
+        if not camera.isOpened():
             raise RuntimeError("Can't open camera")
-        while self.camera.isOpened():
-            ok, frame = self.camera.read()
-            yield cv2.imencode(".jpg", frame)[1].tobytes()
+        ok, frame = camera.read()
+        frame = cv2.resize(frame, (400, 300), interpolation=cv2.INTER_CUBIC)
+        return cv2.imencode('.png', frame)[1].tobytes()
 
 
 if __name__ == "__main__":
