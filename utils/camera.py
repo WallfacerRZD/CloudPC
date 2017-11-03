@@ -5,21 +5,23 @@ import cv2
 
 class Camera(object):
     def __init__(self):
-        self.camera = Device()
         self.width = 1920
         self.height = 1080
+        self.camera = cv2.VideoCapture(0)
 
-    def shot(self):
-        self.camera.setResolution(300, 200)
+    def release_cam(self):
+        self.camera.release()
+
+
+        # def shot(self):
+        #     self.camera.setResolution(300, 200)
         # self.camera.getImage(timestamp=0).resize((self.width, self.height)).save("../web/static/test.jpg", quality=80)
 
-    @staticmethod
-    def frame():
-        camera = cv2.VideoCapture(0)
-        if not camera.isOpened():
+    def frame(self):
+        if not self.camera.isOpened():
             raise RuntimeError("Can't open camera")
-        while camera.isOpened():
-            ok, frame = camera.read()
+        while self.camera.isOpened():
+            ok, frame = self.camera.read()
             yield cv2.imencode(".jpg", frame)[1].tobytes()
 
 

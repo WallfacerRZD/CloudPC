@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>CloudPC</title>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="../static/boostrap.css">
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet">
+    <script>
+        var setHeight = function () {
+            if($(window).width() < 600){
+                $("#main").height($("#main").width());
+            }
+            else {
+                $("#main").height($("#main").width() * 4 / 5);
+            }
+        };
+        $(document).ready(setHeight);
+        window.addEventListener("resize", setHeight);
+        test = function (obj) {
+            var display = document.getElementById("display");
+            if (obj.getAttribute("value") === "ON") {
+                var img = document.createElement("img");
+                img.setAttribute("id", "my_camera");
+                img.setAttribute("src", "/feed_video");
+                img.setAttribute("style", "width: 100%; height: 100%");
+                display.appendChild(img);
+                obj.innerHTML = "关闭摄像头";
+                obj.setAttribute("value", "OFF");
+            }
+            else if (obj.getAttribute("value") === "OFF") {
+                var img = document.getElementById("my_camera");
+                display.removeChild(img);
+                obj.innerHTML = "打开摄像头";
+                obj.setAttribute("value", "ON");
+            }
+        }
+
+
+    </script>
+    <style>
+        .image {
+            height: 80%;
+            width: 80%;
+            position: relative;
+            background-repeat: no-repeat;
+            background-position: center, center;
+            background-size: 100%;
+            margin-left: 10%;
+            margin-top: 10%;
+        }
+
+        #b {
+            margin: 0 auto;
+            background-color: #ec971f;
+        }
+
+        body {
+            background-color: #333333;
+        }
+
+    </style>
+
+</head>
+<body>
+
+
+<div class="container"></div>
+<div id="cloud-pc" class="row" style="margin-top: 4%;">
+    <div id="head" class="col-md-8 col-md-offset-2 col-xs-12">
+        <h1 style="color: #ffffff; text-align: center;"><strong>CloudPC</strong></h1>
+    </div>
+</div>
+<div class="row">
+    <div id="main" class="col-md-6 col-md-offset-3 col-xs-12">
+        <div id="myCarousel" class="carousel slide" data-interval="false" style="height: 100%;">
+            <div class="carousel-inner" style="height: 100%">
+                <div class="item active" style="height: 100%">
+                    <!--主界面-->
+                    <!--#F65314 #7CBB00 #00A1F1 #FFBB00-->
+                    <div style="width:40%; height: 40%; float: left; background : #333333; margin-top: 5%; margin-left: 8%;">
+                        <!--<div class="image" style="background-image:url('../static/manager.png')" data-slide-to="1"-->
+                        <!--data-target="#myCarousel"></div>-->
+                        <div class="image"
+                             style="background-image:url({{url_for('static', filename='manager.png')}})"
+                             data-slide-to="1" data-target="#myCarousel"></div>
+
+                    </div>
+                    <div style=" width:40%; height: 40%; float: right; background : #333333;margin-top: 5%;margin-right: 8%">
+                        <!--<div class="image" style="background-image:url('../static/task.png')" data-slide-to="2"-->
+                        <!--data-target="#myCarousel"></div>-->
+                        <div class="image" style="background-image:url({{url_for('static', filename='task.png')}})"
+                             data-slide-to="2" data-target="#myCarousel"></div>
+
+                    </div>
+                    <div style=" width:40%; height: 40%; float: left; background : #333333; margin-top: 5%; margin-left: 8%">
+                        <!--<div class="image" style="background-image:url('../static/cmd.png');" data-slide-to="3"-->
+                        <!--data-target="#myCarousel"></div>-->
+                        <div class="image" style="background-image:url({{url_for('static', filename='cmd.png')}})"
+                             data-slide-to="3" data-target="#myCarousel"></div>
+
+                    </div>
+                    <div style=" width:40%; height: 40%; float: right; background : #333333; margin-top: 5%;margin-right: 8%">
+                        <!--<div class="image" style="background-image:url('../static/camera.png');" data-slide-to="4"-->
+                        <!--data-target="#myCarousel"></div>-->
+                        <div class="image"
+                             style="background-image:url({{url_for('static', filename='camera.png')}})"
+                             data-slide-to="4" data-target="#myCarousel"></div>
+
+                    </div>
+
+                </div>
+                <div class="item" style="height: 100%">
+                    <div class="block">
+                        <button class="btn btn-info" data-target="#myCarousel" data-slide-to="0">返回1</button>
+                    </div>
+                </div>
+                <div id="task" class="item" style="height: 100%">
+                    <!--<button class="btn-info" data-target="#myCarousel" data-slide-to="0">返回2</button>-->
+                    <button class="btn btn-danger" data-target="#myCarousel" data-slide-to="0">返回1</button>
+                    <div class="row">
+                        <div class="col-md-2 col-md-offset-5 col-xs-2">
+                            <select class="">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="item" style="height: 100%">
+                    <div class="block">
+                        <button class="btn btn-info" data-target="#myCarousel" data-slide-to="0">返回3</button>
+                    </div>
+                </div>
+                <div class="item" style="height: 100%">
+                    <button class="btn btn-info" data-target="#myCarousel" data-slide-to="0">返回4</button>
+
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12" style="text-align: center">
+                            <button id="camera-switch" class="btn btn-info" style="margin-left: 10%" value="ON"
+                                    onclick="test(this)">
+                                打开摄像头
+                            </button>
+                            <button id="screen-switch" class="btn btn-info" style="margin-left: 10%" value="ON"
+                                    onclick="">
+                                摄像头快照
+                            </button>
+                            <button id="" class="btn btn-info" style="margin-left: 10%" value="ON" onclick="">
+                                屏幕快照
+                            </button>
+                        </div>
+                        <div id="display" style="height: 80%; width: 80%; margin-left: 10%">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

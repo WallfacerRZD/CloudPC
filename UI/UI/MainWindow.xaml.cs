@@ -24,10 +24,5 @@ namespace UI
         {
             InitializeComponent();
         }
-
-        private void button_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
     }
 }
