@@ -33,23 +33,24 @@ class Camera(object):
         if not camera.isOpened():
             raise RuntimeError("Can't open camera")
         ok, frame = camera.read()
-        frame = cv2.resize(frame, (400, 300), interpolation=cv2.INTER_CUBIC)
+        frame = cv2.resize(frame, (1200, 900), interpolation=cv2.INTER_CUBIC)
         return cv2.imencode('.png', frame)[1].tobytes()
 
     @staticmethod
     def get_position():
         driver = webdriver.PhantomJS(executable_path='phantomjs.exe')
-        driver.get('http://localhost:2333/position')
-        sleep(5)
+        driver.get('http://127.0.0.1:2333/position')
+        sleep(2)
         screen = driver.get_screenshot_as_png()
         string_io = StringIO(screen)
         image = Image.open(string_io)
         image_io = BytesIO()
         image.save(image_io, 'png')
         image_io.seek(0)
+        driver.quit()
         return image_io
 
 
 if __name__ == "__main__":
-    camera = Camera()
-    camera.frame()
+    driver = webdriver.PhantomJS(executable_path='phantomjs.exe')
+    driver.get('http://localhost:2335/position')

@@ -21,7 +21,6 @@ def login():
         return u"<p>密码错误了哦</p>"
 
 
-# 实时监控摄像头
 @app.route("/", methods=["POST", "GET"])
 def live():
     return render_template("index.html")
@@ -48,8 +47,8 @@ def position():
 
 @app.route("/get_position", methods=["GET", "POST"])
 def get_position():
-    print 'tesy'
     img_stream = Camera.get_position()
+    print 'test'
     return Response(img_stream, mimetype='image/png')
 
 
@@ -78,4 +77,4 @@ def index():
 
 
 if __name__ == "__main__":
-    app.run(port=2333, debug=True)
+    app.run(host='0.0.0.0', port=2333, threaded=True)
