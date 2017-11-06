@@ -4,15 +4,90 @@
     <meta charset="UTF-8">
     <title>Live</title>
     <style>
-        img{
+        img {
             width: 60%;
             height: 60%;
         }
 
+
     </style>
 </head>
 <body>
-    <h align="center">Live</h>
-    <img src="{{ url_for( 'feed_video' )}}">
+<!--<div id="container" style="height: 500px; width: 1000px; position: relative; background: rgb(252, 249, 242);"-->
+     <!--class="amap-container">-->
+    <div class="amap-maps">
+        <div class="amap-drags" style="">
+            <div class="amap-layers" style="transform: translateZ(0px);">
+                <div class="amap-layer" style="position: absolute; z-index: 0; top: -22958px; left: 14055px;"><img
+                        src="http://wprd01.is.autonavi.com/appmaptile?lang=zh_cn&amp;size=1&amp;style=7&amp;x=206799&amp;y=107689&amp;z=18&amp;scl=1&amp;ltype=11"
+                        style="position: absolute; top: 23357px; left: -13148px; width: 256px; height: 256px; z-index: 18;"><img
+                        src="http://wprd04.is.autonavi.com/appmaptile?lang=zh_cn&amp;size=1&amp;style=7&amp;x=206799&amp;y=107688&amp;z=18&amp;scl=1&amp;ltype=11"
+                        style="position: absolute; top: 23101px; left: -13148px; width: 256px; height: 256px; z-index: 18;"><img
+                        src="http://wprd03.is.autonavi.com/appmaptile?lang=zh_cn&amp;size=1&amp;style=7&amp;x=206799&amp;y=107687&amp;z=18&amp;scl=1&amp;ltype=11"
+                        style="position: absolute; top: 22845px; left: -13148px; width: 256px; height: 256px; z-index: 18;"><img
+                        src="http://wprd04.is.autonavi.com/appmaptile?lang=zh_cn&amp;size=1&amp;style=7&amp;x=206798&amp;y=107689&amp;z=18&amp;scl=1&amp;ltype=11"
+                        style="position: absolute; top: 23357px; left: -13404px; width: 256px; height: 256px; z-index: 18;"><img
+                        src="http://wprd03.is.autonavi.com/appmaptile?lang=zh_cn&amp;size=1&amp;style=7&amp;x=206798&amp;y=107688&amp;z=18&amp;scl=1&amp;ltype=11"
+                        style="position: absolute; top: 23101px; left: -13404px; width: 256px; height: 256px; z-index: 18;"><img
+                        src="http://wprd02.is.autonavi.com/appmaptile?lang=zh_cn&amp;size=1&amp;style=7&amp;x=206798&amp;y=107687&amp;z=18&amp;scl=1&amp;ltype=11"
+                        style="position: absolute; top: 22845px; left: -13404px; width: 256px; height: 256px; z-index: 18;"><img
+                        src="http://wprd03.is.autonavi.com/appmaptile?lang=zh_cn&amp;size=1&amp;style=7&amp;x=206797&amp;y=107689&amp;z=18&amp;scl=1&amp;ltype=11"
+                        style="position: absolute; top: 23357px; left: -13660px; width: 256px; height: 256px; z-index: 18;"><img
+                        src="http://wprd02.is.autonavi.com/appmaptile?lang=zh_cn&amp;size=1&amp;style=7&amp;x=206797&amp;y=107688&amp;z=18&amp;scl=1&amp;ltype=11"
+                        style="position: absolute; top: 23101px; left: -13660px; width: 256px; height: 256px; z-index: 18;"><img
+                        src="http://wprd01.is.autonavi.com/appmaptile?lang=zh_cn&amp;size=1&amp;style=7&amp;x=206797&amp;y=107687&amp;z=18&amp;scl=1&amp;ltype=11"
+                        style="position: absolute; top: 22845px; left: -13660px; width: 256px; height: 256px; z-index: 18;"><img
+                        src="http://wprd02.is.autonavi.com/appmaptile?lang=zh_cn&amp;size=1&amp;style=7&amp;x=206796&amp;y=107689&amp;z=18&amp;scl=1&amp;ltype=11"
+                        style="position: absolute; top: 23357px; left: -13916px; width: 256px; height: 256px; z-index: 18;"><img
+                        src="http://wprd01.is.autonavi.com/appmaptile?lang=zh_cn&amp;size=1&amp;style=7&amp;x=206796&amp;y=107688&amp;z=18&amp;scl=1&amp;ltype=11"
+                        style="position: absolute; top: 23101px; left: -13916px; width: 256px; height: 256px; z-index: 18;"><img
+                        src="http://wprd04.is.autonavi.com/appmaptile?lang=zh_cn&amp;size=1&amp;style=7&amp;x=206796&amp;y=107687&amp;z=18&amp;scl=1&amp;ltype=11"
+                        style="position: absolute; top: 22845px; left: -13916px; width: 256px; height: 256px; z-index: 18;"><img
+                        src="http://wprd01.is.autonavi.com/appmaptile?lang=zh_cn&amp;size=1&amp;style=7&amp;x=206795&amp;y=107689&amp;z=18&amp;scl=1&amp;ltype=11"
+                        style="position: absolute; top: 23357px; left: -14172px; width: 256px; height: 256px; z-index: 18;"><img
+                        src="http://wprd04.is.autonavi.com/appmaptile?lang=zh_cn&amp;size=1&amp;style=7&amp;x=206795&amp;y=107688&amp;z=18&amp;scl=1&amp;ltype=11"
+                        style="position: absolute; top: 23101px; left: -14172px; width: 256px; height: 256px; z-index: 18;"><img
+                        src="http://wprd03.is.autonavi.com/appmaptile?lang=zh_cn&amp;size=1&amp;style=7&amp;x=206795&amp;y=107687&amp;z=18&amp;scl=1&amp;ltype=11"
+                        style="position: absolute; top: 22845px; left: -14172px; width: 256px; height: 256px; z-index: 18;">
+                </div>
+                <div class="amap-markers" style="position: absolute; z-index: 120; top: 250px; left: 500px;">
+                    <div class="amap-marker"
+                         style="top: -11px; left: -11px; z-index: 100; transform: rotate(0deg); transform-origin: 11px 11px 0px; display: block;">
+                        <div class="amap-marker-content" style="opacity: 1;">
+                            <div style="width:23px;height:23px;overflow:hidden;"><img
+                                    style="position:relative;cursor:pointer;" width="23px" height="23px"
+                                    src="http://webapi.amap.com/theme/v1.3/markers/n/loc.png"></div>
+                        </div>
+                    </div>
+                </div>
+                <!--<canvas class="amap-vectors" width="1000" height="500"-->
+                        <!--style="position: absolute; z-index: 110; top: 0px; left: 0px;"></canvas>-->
+                <!--<div class="amap-e" style="z-index: 11; opacity: 1;">-->
+                    <!--<div class="amap-custom amap-indoor-map">-->
+                        <!--<div class="floor-outline-image-con"></div>-->
+                        <!--<div class="floor-image-con"></div>-->
+                        <!--<div class="highlight-image-con"></div>-->
+                        <!--<div class="label-image-con"></div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<canvas class="amap-labels" draggable="false" width="1000" height="500"-->
+                        <!--style="position: absolute; z-index: 99; height: 500px; width: 1000px; top: 0px; left: 0px;"></canvas>-->
+            <!--</div>-->
+            <!--<div class="amap-overlays" style=""></div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div style="display: none;"></div>-->
+    <!--<div class="amap-controls">-->
+        <!--<div class="amap-geolocation-con" style="position: absolute; z-index: 9999; left: 10px; bottom: 20px;">-->
+            <!--<div class="amap-geo"></div>-->
+        <!--</div>-->
+        <!--<div class="amap-indoormap-floorbar-control" style="display: none;"></div>-->
+    <!--</div>-->
+    <!--<a class="amap-logo" href="http://gaode.com" target="_blank" style="display: block;"><img-->
+            <!--src="http://webapi.amap.com/theme/v1.3/autonavi.png"></a>-->
+    <!--<div class="amap-copyright" style="display: none; visibility: visible;">&lt;!&ndash;v1.4.0&ndash;&gt; © 2017 AutoNavi <span-->
+            <!--class="amap-mcode">- GS(2016)710号</span></div>-->
+<!--</div>-->
+
 </body>
 </html>

@@ -1,16 +1,11 @@
-from VideoCapture import Device
-import time
 import cv2
-from PIL import ImageGrab
+from PIL import ImageGrab, Image
 from io import BytesIO
-
+from selenium import webdriver
+from StringIO import StringIO
+from time import sleep
 
 class Camera(object):
-
-
-        # def shot(self):
-        #     self.camera.setResolution(300, 200)
-        # self.camera.getImage(timestamp=0).resize((self.width, self.height)).save("../web/static/test.jpg", quality=80)
     @staticmethod
     def frame():
         camera = cv2.VideoCapture(0)
@@ -40,6 +35,19 @@ class Camera(object):
         ok, frame = camera.read()
         frame = cv2.resize(frame, (400, 300), interpolation=cv2.INTER_CUBIC)
         return cv2.imencode('.png', frame)[1].tobytes()
+
+    @staticmethod
+    def get_position():
+        driver = webdriver.PhantomJS(executable_path='phantomjs.exe')
+        driver.get('http://localhost:2333/position')
+        sleep(5)
+        screen = driver.get_screenshot_as_png()
+        string_io = StringIO(screen)
+        image = Image.open(string_io)
+        image_io = BytesIO()
+        image.save(image_io, 'png')
+        image_io.seek(0)
+        return image_io
 
 
 if __name__ == "__main__":

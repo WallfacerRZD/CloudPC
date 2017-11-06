@@ -48,7 +48,9 @@ def position():
 
 @app.route("/get_position", methods=["GET", "POST"])
 def get_position():
-    return render_template('get_position.html')
+    print 'tesy'
+    img_stream = Camera.get_position()
+    return Response(img_stream, mimetype='image/png')
 
 
 @app.route("/shot_camera", methods=["GET"])
@@ -76,4 +78,4 @@ def index():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", debug=True, port=2333)
+    app.run(port=2333, debug=True)
