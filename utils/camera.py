@@ -5,25 +5,22 @@ from selenium import webdriver
 from StringIO import StringIO
 from time import sleep
 
+
 class Camera(object):
     @staticmethod
     def frame():
         camera = cv2.VideoCapture(0)
-        try:
-            if not camera.isOpened():
-                raise RuntimeError("Can't open camera")
-            while camera.isOpened():
-                ok, frame = camera.read()
-                yield cv2.imencode(".png", frame)[1].tobytes()
-        except Exception, e:
-            print str(e)
-            camera.release()
+        if not camera.isOpened():
+            raise RuntimeError("Can't open camera")
+        while camera.isOpened():
+            ok, frame = camera.read()
+            yield cv2.imencode(".jpg", frame)[1].tobytes()
 
     @staticmethod
     def shot_screen():
         screen = ImageGrab.grab()
         img_io = BytesIO()
-        screen.save(img_io, 'png')
+        screen.save(img_io, 'jpeg')
         img_io.seek(0)
         return img_io
 
@@ -34,7 +31,7 @@ class Camera(object):
             raise RuntimeError("Can't open camera")
         ok, frame = camera.read()
         frame = cv2.resize(frame, (1200, 900), interpolation=cv2.INTER_CUBIC)
-        return cv2.imencode('.png', frame)[1].tobytes()
+        return cv2.imencode('.jpg', frame)[1].tobytes()
 
     @staticmethod
     def get_position():
@@ -45,10 +42,14 @@ class Camera(object):
         string_io = StringIO(screen)
         image = Image.open(string_io)
         image_io = BytesIO()
-        image.save(image_io, 'png')
-        image_io.seek(0)
-        driver.quit()
-        return image_io
+        try:
+            image.save(image_io, 'png')
+            image_io.seek(0)
+            return image_io
+        except Exception, e:
+            return "Get Position Failed!!"
+        finally:
+            driver.quit()
 
 
 if __name__ == "__main__":

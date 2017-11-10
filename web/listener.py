@@ -3,7 +3,7 @@
 # 解决命令行找不到包
 import sys
 
-sys.path.append("F:\python\demo\email_receiver")
+sys.path.append("F:\python\demo\CloudPC")
 
 from flask import Flask, send_file, request, render_template, Response, url_for
 
@@ -60,15 +60,14 @@ def shot_camera():
 
 def generate_frame():
     cam = Camera.frame()
-    try:
-        while True:
-            frame = cam.next()
-            yield (b"--frame\r\n" +
-                   b"Content-type: image/jpg\r\n\r\n" +
-                   frame +
-                   b"\r\n")
-    except Exception, e:
-        print e
+    while True:
+        frame = cam.next()
+        yield (b"--frame\r\n"
+               b"Content-type: image/jpg\r\n\r\n" +
+
+
+               frame +
+               b"\r\n")
 
 
 @app.route('/', methods=["GET", "POST"])
@@ -77,4 +76,4 @@ def index():
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=2333, threaded=True)
+    app.run(host='0.0.0.0', port=2334, threaded=True, debug=True)
