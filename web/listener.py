@@ -8,6 +8,7 @@ sys.path.append("F:\python\demo\CloudPC")
 from flask import Flask, send_file, request, render_template, Response, url_for
 
 from utils.camera import Camera
+from utils.manager import Manager
 
 app = Flask(__name__)
 
@@ -58,13 +59,26 @@ def shot_camera():
     return Response(img_stream, mimetype='image/png')
 
 
+@app.route('/lock', methods=["POST"])
+def lock():
+    manager = Manager()
+    manager.lock()
+    return 'sucess'
+
+
+@app.route('/shot_down', methods=["POST"])
+def shot_down():
+    manager = Manager()
+    manager.shutdown_after(0, 0, 3)
+    return 'success'
+
+
 def generate_frame():
     cam = Camera.frame()
     while True:
         frame = cam.next()
         yield (b"--frame\r\n"
                b"Content-type: image/jpg\r\n\r\n" +
-
 
                frame +
                b"\r\n")

@@ -117,11 +117,25 @@
             getImgFrom('/get_position', display);
         };
 
-        var shotDown = function (obj) {
-            var h = $('#hours').selectpicker('val');
-            var m = $('#minutes').selectpicker('val');
-            console.log(h);
-            console.log(m);
+        var lock = function (obj) {
+            var ok = confirm('确定要锁屏吗?亲');
+            if (ok) {
+                $.post('/lock')
+            }
+            else {
+
+            }
+        }
+
+        var shutDown = function () {
+            var ok = confirm('确定要关机吗?亲');
+            if (ok) {
+                $.post('/shut_down');
+                alert('ByeBye!!');
+            }
+            else {
+
+            }
         }
 
 
@@ -194,7 +208,7 @@
                               style="color: rgb(255, 255, 255);margin-left: 3px">返回</span>
                         <div class="row">
                             <div class="col-md-12 col-xs-12" style="text-align: center">
-                                <button class="btn btn-default btn-lg" onclick="getPosition(this)"
+                                <button class="btn btn-info btn-lg" onclick="getPosition(this)"
                                         style="margin: 0 auto;">
                                     定位电脑
                                 </button>
@@ -213,12 +227,12 @@
                     1
                     <div class="row">
                         <div class="col-md-4 col-md-offset-4 col-xs-12" style="text-align: center; margin-top: 15%">
-                            <button class="btn btn-block btn-info btn-lg">关机</button>
+                            <button class="btn btn-block btn-info btn-lg" onclick="shutDown()">关机</button>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-4 col-md-offset-4 col-xs-12" style="text-align: center; margin-top: 15%">
-                            <button class="btn btn-block btn-info btn-lg">锁屏</button>
+                            <button class="btn btn-block btn-info btn-lg" onclick="lock()">锁屏</button>
                         </div>
                     </div>
                 </div>
