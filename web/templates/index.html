@@ -40,13 +40,23 @@
         };
 
         $(document).ready(setHeight);
+        $(document).ready(function () {
+            if ($(window).width() > 600)
+            switch1 = document.getElementById('switch1');
+            switch2 = document.getElementById('switch2');
+            switch3 = document.getElementById('switch3');
+            switch1.setAttribute('class', 'btn btn-info btn-lg');
+            switch2.setAttribute('class', 'btn btn-info btn-lg');
+            switch3.setAttribute('class', 'btn btn-info btn-lg');
+        })
         window.addEventListener("resize", setHeight);
 
 
         var openCamera = function (obj) {
             var display = document.getElementById("camera-display");
+            console.log(has_img(display));
             if (has_img(display)) {
-                display.innerHTML = '';
+                display.innerHTML = ' ';
             }
             if (obj.getAttribute("value") === "ON") {
                 var img = document.createElement("img");
@@ -251,7 +261,7 @@
                           style="color: rgb(255, 255, 255);margin-left: 3px">返回</span>
                     <div class="row">
                         <div class="col-md-12 col-xs-12" style="text-align: center">
-                            <button id="camera-switch" class="btn btn-info btn-sm" value="ON"
+                            <button id="switch1" class="btn btn-info btn-sm" value="ON"
                                     onclick="openCamera(this)">
                                 打开摄像头
                             </button>
@@ -259,13 +269,13 @@
                     </div>
                     <div class="row" style="margin-top: 3%">
                         <div class="col-xs-6 col-md-6" style="text-align: center">
-                            <button id="screen-switch" class="btn btn-info btn-sm" value="ON"
+                            <button id="switch2" class="btn btn-info btn-sm" value="ON"
                                     onclick="shot_camera(this)">
                                 摄像头快照
                             </button>
                         </div>
                         <div class="col-xs-6 col-md-6" style="text-align: center">
-                            <button id="" class="btn btn-info btn-sm" value="ON" onclick="shot_screen(this)">
+                            <button id="switch3" class="btn btn-info btn-sm" value="ON" onclick="shot_screen(this)">
                                 屏幕快照
                             </button>
                         </div>
@@ -279,9 +289,6 @@
 </div>
 </body>
 <style>
-    #lightbox {
-        transform: rotate(90deg);
-    }
 
     @media only screen and (max-width: 500px) {
         .image {
@@ -322,6 +329,7 @@
         .display {
             height: 80%;
         }
+
     }
 
 

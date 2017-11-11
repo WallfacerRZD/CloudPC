@@ -1,5 +1,9 @@
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
 import os
 from ctypes import *
+
 
 
 class Manager(object):
@@ -17,7 +21,13 @@ class Manager(object):
     def shutdown_cancel():
         os.system("shutdown -a")
 
+    @staticmethod
+    def execute(cmd):
+        result = os.popen('dir')
+        for line in result:
+            print line.decode('gbk').encode('utf-8')
+
 
 if __name__ == "__main__":
     manager = Manager()
-    manager.lock()
+    manager.execute('ls')

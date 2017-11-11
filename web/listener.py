@@ -76,12 +76,17 @@ def shot_down():
 def generate_frame():
     cam = Camera.frame()
     while True:
-        frame = cam.next()
-        yield (b"--frame\r\n"
-               b"Content-type: image/jpg\r\n\r\n" +
+        try:
+            frame = cam.next()
+            yield (b"--frame\r\n"
+                   b"Content-type: image/jpg\r\n\r\n" +
 
-               frame +
-               b"\r\n")
+                   frame +
+                   b"\r\n")
+        except Exception, e:
+            print e
+            break
+
 
 
 @app.route('/', methods=["GET", "POST"])
