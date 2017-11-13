@@ -2,6 +2,7 @@
 
 # 解决命令行找不到包
 import sys
+from json import loads
 
 sys.path.append("F:\python\demo\CloudPC")
 
@@ -66,11 +67,19 @@ def lock():
     return 'sucess'
 
 
-@app.route('/shot_down', methods=["POST"])
-def shot_down():
+@app.route('/shut_down', methods=["POST"])
+def shut_down():
     manager = Manager()
-    manager.shutdown_after(0, 0, 3)
+    manager.shutdown_after(3)
     return 'success'
+
+
+@app.route('/execute_cmd', methods=['POST'])
+def execute_cmd():
+    data = loads(request.form.get('data'))
+    cmd = data['cmd']
+    output = Manager.execute(cmd)
+    return '<p>%s</p>' % output
 
 
 def generate_frame():
@@ -88,11 +97,10 @@ def generate_frame():
             break
 
 
-
 @app.route('/', methods=["GET", "POST"])
 def index():
     return send_file("static/home.html")
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=2334, threaded=True, debug=True)
+    app.run(host='0.0.0.0', port=2333, threaded=True, debug=True)

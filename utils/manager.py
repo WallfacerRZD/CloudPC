@@ -1,9 +1,8 @@
-import sys
-reload(sys)
-sys.setdefaultencoding('utf-8')
+# coding=utf-8
 import os
+from chardet import detect
+import subprocess
 from ctypes import *
-
 
 
 class Manager(object):
@@ -14,8 +13,8 @@ class Manager(object):
         self.user32.LockWorkStation()
 
     @staticmethod
-    def shutdown_after(h=0, m=0, s=0):
-        os.system("shutdown -s -t %d" % 2000)
+    def shutdown_after(s):
+        os.system("shutdown -s -t %d" % s)
 
     @staticmethod
     def shutdown_cancel():
@@ -23,11 +22,20 @@ class Manager(object):
 
     @staticmethod
     def execute(cmd):
-        result = os.popen('dir')
-        for line in result:
-            print line.decode('gbk').encode('utf-8')
+        try:
+            p = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            out, error = p.communicate()
+            if p.returncode:
+                encoding = detect(error)['encoding']
+                return error.decode(encoding).encode('utf-8')
+            else:
+                encoding = detect(out)['encoding']
+                return out.decode(encoding).encode('utf-8')
+        except Exception, e:
+            print e
+            return u'出错啦!!'
 
 
 if __name__ == "__main__":
     manager = Manager()
-    manager.execute('ls')
+    manager.execute('fir')

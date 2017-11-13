@@ -53,5 +53,4 @@ class Camera(object):
 
 
 if __name__ == "__main__":
-    driver = webdriver.PhantomJS(executable_path='phantomjs.exe')
-    driver.get('http://localhost:2335/position')
+    print 'test'
