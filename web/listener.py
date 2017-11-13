@@ -32,7 +32,7 @@ def live():
 def feed_video():
     try:
         return Response(generate_frame(), mimetype='multipart/x-mixed-replace; boundary=frame')
-    except:
+    except Exception:
         return ''
 
 
@@ -85,16 +85,12 @@ def execute_cmd():
 def generate_frame():
     cam = Camera.frame()
     while True:
-        try:
-            frame = cam.next()
-            yield (b"--frame\r\n"
-                   b"Content-type: image/jpg\r\n\r\n" +
+        frame = cam.next()
+        yield (b"--frame\r\n"
+               b"Content-type: image/jpg\r\n\r\n" +
 
-                   frame +
-                   b"\r\n")
-        except Exception, e:
-            print e
-            break
+               frame +
+               b"\r\n")
 
 
 @app.route('/', methods=["GET", "POST"])
