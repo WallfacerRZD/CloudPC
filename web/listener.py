@@ -79,7 +79,7 @@ def execute_cmd():
     data = loads(request.form.get('data'))
     cmd = data['cmd']
     output = Manager.execute(cmd)
-    return '<p>%s</p>' % output
+    return output
 
 
 def generate_frame():

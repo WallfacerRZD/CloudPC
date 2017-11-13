@@ -26,11 +26,15 @@ class Manager(object):
             p = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             out, error = p.communicate()
             if p.returncode:
-                encoding = detect(error)['encoding']
-                return error.decode(encoding).encode('utf-8')
+                if error:
+                    encoding = detect(error)['encoding']
+                    return error.decode(encoding).encode('utf-8')
             else:
-                encoding = detect(out)['encoding']
-                return out.decode(encoding).encode('utf-8')
+                if out:
+                    encoding = detect(out)['encoding']
+                    return out.decode(encoding).encode('utf-8')
+                else:
+                    return '执行成功,无输出信息'
         except Exception, e:
             print e
             return u'出错啦!!'
