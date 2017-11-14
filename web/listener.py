@@ -6,8 +6,7 @@ from json import loads
 
 sys.path.append("F:\python\demo\CloudPC")
 
-from flask import Flask, send_file, request, render_template, Response, url_for
-
+from flask import Flask, send_file, request, render_template, Response
 from utils.camera import Camera
 from utils.manager import Manager
 
@@ -99,4 +98,4 @@ def index():
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=2333, threaded=True, debug=True)
+    app.run(host='0.0.0.0', port=2333, threaded=True)

@@ -1,4 +1,5 @@
-import cv2
+# coding=utf-8
+from cv2 import VideoCapture, imencode, resize
 from PIL import ImageGrab, Image
 from io import BytesIO
 from selenium import webdriver
@@ -9,12 +10,15 @@ from time import sleep
 class Camera(object):
     @staticmethod
     def frame():
-        camera = cv2.VideoCapture(0)
-        if not camera.isOpened():
-            raise RuntimeError("Can't open camera")
-        while camera.isOpened():
-            ok, frame = camera.read()
-            yield cv2.imencode(".jpg", frame)[1].tobytes()
+        try:
+            camera = VideoCapture(0)
+            if not camera.isOpened():
+                raise RuntimeError("Can't open camera")
+            while camera.isOpened():
+                ok, frame = camera.read()
+                yield imencode(".jpg", frame)[1].tobytes()
+        except Exception, e:
+            print e
 
     @staticmethod
     def shot_screen():
@@ -26,12 +30,16 @@ class Camera(object):
 
     @staticmethod
     def shot_camera():
-        camera = cv2.VideoCapture(0)
-        if not camera.isOpened():
-            raise RuntimeError("Can't open camera")
-        ok, frame = camera.read()
-        frame = cv2.resize(frame, (1200, 900), interpolation=cv2.INTER_CUBIC)
-        return cv2.imencode('.jpg', frame)[1].tobytes()
+        try:
+            camera = VideoCapture(0)
+            if not camera.isOpened():
+                raise RuntimeError("Can't open camera")
+            ok, frame = camera.read()
+            frame = resize(frame, (1200, 900), interpolation=cv2.INTER_CUBIC)
+            return imencode('.jpg', frame)[1].tobytes()
+        except Exception, e:
+            print e
+            return u'打开摄像头失败'
 
     @staticmethod
     def get_position():
