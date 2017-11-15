@@ -28,13 +28,15 @@ class Manager(object):
             if p.returncode:
                 if error:
                     encoding = detect(error)['encoding']
-                    return error.decode(encoding).encode('utf-8')
+                    content = (u'您执行的命令是:   %s\n' % cmd).encode('utf-8') + error.decode(encoding).encode('utf-8')
+                    return content
             else:
                 if out:
                     encoding = detect(out)['encoding']
-                    return out.decode(encoding).encode('utf-8')
+                    content = (u'您执行的命令是:   %s\n' % cmd).encode('utf-8') + out.decode(encoding).encode('utf-8')
+                    return content
                 else:
-                    return '执行成功,无输出信息'
+                    return (u'您执行的命令是:   %s\n' % cmd).encode('utf-8') + u'执行成功,无输出信息'
         except Exception, e:
             print e
             return u'出错啦!!'
