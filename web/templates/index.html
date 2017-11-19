@@ -49,7 +49,8 @@
             var display = document.getElementById("camera-display");
             console.log(has_img(display));
             if (has_img(display)) {
-                display.innerHTML = ' ';
+                display.innerHTML = '';
+
             }
             if (obj.getAttribute("value") === "ON") {
                 var img = document.createElement("img");

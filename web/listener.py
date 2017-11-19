@@ -2,24 +2,19 @@
 
 # 解决命令行找不到包
 import sys
-from json import loads
+import os
 
-sys.path.append("F:\python\demo\CloudPC")
+current_path = os.path.abspath('.')
+sys.path.append(current_path)
 
+from json import loads, load, dump
 from flask import Flask, send_file, request, render_template, Response
 from utils.camera import Camera
 from utils.manager import Manager
-
+from utils import sender
+from subprocess import Popen, PIPE
+import socket
 app = Flask(__name__)
-
-
-@app.route('/login', methods=["POST"])
-def login():
-    password = request.form["password"]
-    if password == "password":
-        return "<p>sdf</p>"
-    else:
-        return u"<p>密码错误了哦</p>"
 
 
 @app.route("/", methods=["POST", "GET"])
@@ -29,10 +24,7 @@ def live():
 
 @app.route("/feed_video", methods=["GET"])
 def feed_video():
-    try:
-        return Response(generate_frame(), mimetype='multipart/x-mixed-replace; boundary=frame')
-    except Exception:
-        return ''
+    return Response(generate_frame(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
 @app.route('/shot_screen', methods=['GET'])
@@ -98,4 +90,31 @@ def index():
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=2333, threaded=True)
+    not_connected = 1
+    # ping百度, 判断是否联网
+    while True:
+        p = Popen('ping baidu.com', shell=True, stdout=PIPE, stderr=PIPE)
+        p.communicate()
+        not_connected = p.returncode
+        if not not_connected:
+            break
+
+    # 获取ip
+    myname = socket.getfqdn(socket.gethostname())
+    myaddr = socket.gethostbyname(myname)
+
+    # 发送邮件
+    try:
+        config = {}
+        with open('config.json', 'r') as f:
+            config = load(f)
+        user = config['user']
+        password = config['password']
+        mail_sender = sender.Sender(user, password)
+        mail_sender.send_text('CloudPC', 'CloudPC正在运行,请访问:\n%s:2333' % myaddr, 'plain')
+        # 启动
+        app.run(host='0.0.0.0', port=2333, threaded=True)
+    except Exception, e:
+        print '程序启动失败, 请检查配置文件'
+        print e
+        exit()

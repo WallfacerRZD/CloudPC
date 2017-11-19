@@ -1,5 +1,5 @@
 # coding=utf-8
-from cv2 import VideoCapture, imencode, resize
+from cv2 import VideoCapture, imencode, resize, INTER_CUBIC
 from PIL import ImageGrab, Image
 from io import BytesIO
 from selenium import webdriver
@@ -10,15 +10,13 @@ from time import sleep
 class Camera(object):
     @staticmethod
     def frame():
-        try:
-            camera = VideoCapture(0)
-            if not camera.isOpened():
-                raise RuntimeError("Can't open camera")
-            while camera.isOpened():
-                ok, frame = camera.read()
-                yield imencode(".jpg", frame)[1].tobytes()
-        except Exception, e:
-            print e
+        camera = VideoCapture(0)
+        if not camera.isOpened():
+            raise RuntimeError("Can't open camera")
+
+        while camera.isOpened():
+            ok, frame = camera.read()
+            yield imencode(".jpg", frame)[1].tobytes()
 
     @staticmethod
     def shot_screen():
@@ -35,17 +33,18 @@ class Camera(object):
             if not camera.isOpened():
                 raise RuntimeError("Can't open camera")
             ok, frame = camera.read()
-            frame = resize(frame, (1200, 900), interpolation=cv2.INTER_CUBIC)
-            return imencode('.jpg', frame)[1].tobytes()
+            frame = resize(frame, (1200, 900), interpolation=INTER_CUBIC)
+            img_stream = imencode('.jpg', frame)[1].tobytes()
+            return img_stream
         except Exception, e:
             print e
-            return u'打开摄像头失败'
+            return u'nothing'
 
     @staticmethod
     def get_position():
         driver = webdriver.PhantomJS(executable_path='phantomjs.exe')
         driver.get('http://127.0.0.1:2333/position')
-        sleep(2)
+        sleep(1)
         screen = driver.get_screenshot_as_png()
         string_io = StringIO(screen)
         image = Image.open(string_io)
