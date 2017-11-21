@@ -99,6 +99,7 @@ if __name__ == "__main__":
         if not not_connected:
             break
 
+
     # 获取ip
     myname = socket.getfqdn(socket.gethostname())
     myaddr = socket.gethostbyname(myname)
