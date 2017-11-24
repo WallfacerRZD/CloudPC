@@ -8,29 +8,53 @@ current_path = os.path.abspath('.')
 sys.path.append(current_path)
 
 from json import loads, load, dump
-from flask import Flask, send_file, request, render_template, Response
+from flask import Flask, send_file, request, Response, session, redirect, url_for
 from utils.camera import Camera
 from utils.manager import Manager
 from utils import sender
 from subprocess import Popen, PIPE
 import socket
+
 app = Flask(__name__)
+app.secret_key = 'salkf12323!#!@#$!%fa!@#!4sdzGF'
+
+config = {}
+with open('config.json', 'r') as f:
+    config = load(f)
+user = config['user']
+password = config['password']
+
+
+def has_login():
+    return session.get('status') is not None
+
+
+@app.route("/login", methods=["POST"])
+def login():
+    if request.form.get('key', '') == config['key']:
+        session['status'] = True
+    return redirect(url_for('index'))
 
 
 @app.route("/", methods=["POST", "GET"])
-def live():
-    return render_template("index.html")
+def index():
+    if has_login():
+        return send_file("static/index.html")
+    else:
+        return send_file('static/login.html')
 
 
 @app.route("/feed_video", methods=["GET"])
 def feed_video():
-    return Response(generate_frame(), mimetype='multipart/x-mixed-replace; boundary=frame')
+    if has_login():
+        return Response(generate_frame(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
 @app.route('/shot_screen', methods=['GET'])
 def shot_screen():
-    img_stream = Camera.shot_screen()
-    return Response(img_stream, mimetype='image/png')
+    if has_login():
+        img_stream = Camera.shot_screen()
+        return Response(img_stream, mimetype='image/png')
 
 
 @app.route("/position", methods=["GET", "POST"])
@@ -40,37 +64,42 @@ def position():
 
 @app.route("/get_position", methods=["GET", "POST"])
 def get_position():
-    img_stream = Camera.get_position()
-    print 'test'
-    return Response(img_stream, mimetype='image/png')
+    if has_login():
+        img_stream = Camera.get_position()
+        print 'test'
+        return Response(img_stream, mimetype='image/png')
 
 
 @app.route("/shot_camera", methods=["GET"])
 def shot_camera():
-    img_stream = Camera.shot_camera()
-    return Response(img_stream, mimetype='image/png')
+    if has_login():
+        img_stream = Camera.shot_camera()
+        return Response(img_stream, mimetype='image/png')
 
 
 @app.route('/lock', methods=["POST"])
 def lock():
-    manager = Manager()
-    manager.lock()
-    return 'sucess'
+    if has_login():
+        manager = Manager()
+        manager.lock()
+        return 'sucess'
 
 
 @app.route('/shut_down', methods=["POST"])
 def shut_down():
-    manager = Manager()
-    manager.shutdown_after(3)
-    return 'success'
+    if has_login():
+        manager = Manager()
+        manager.shutdown_after(3)
+        return 'success'
 
 
 @app.route('/execute_cmd', methods=['POST'])
 def execute_cmd():
-    data = loads(request.form.get('data'))
-    cmd = data['cmd']
-    output = Manager.execute(cmd)
-    return output
+    if has_login():
+        data = loads(request.form.get('data'))
+        cmd = data['cmd']
+        output = Manager.execute(cmd)
+        return output
 
 
 def generate_frame():
@@ -84,11 +113,6 @@ def generate_frame():
                b"\r\n")
 
 
-@app.route('/', methods=["GET", "POST"])
-def index():
-    return send_file("static/home.html")
-
-
 if __name__ == "__main__":
     not_connected = 1
     # ping百度, 判断是否联网
@@ -99,20 +123,14 @@ if __name__ == "__main__":
         if not not_connected:
             break
 
-
     # 获取ip
     myname = socket.getfqdn(socket.gethostname())
     myaddr = socket.gethostbyname(myname)
 
     # 发送邮件
     try:
-        config = {}
-        with open('config.json', 'r') as f:
-            config = load(f)
-        user = config['user']
-        password = config['password']
-        mail_sender = sender.Sender(user, password)
-        mail_sender.send_text('CloudPC', 'CloudPC正在运行,请访问:\n%s:2333' % myaddr, 'plain')
+        # mail_sender = sender.Sender(user, password)
+        # mail_sender.send_text('CloudPC', 'CloudPC正在运行,请访问:\n%s:2333' % myaddr, 'plain')
         # 启动
         app.run(host='0.0.0.0', port=2333, threaded=True)
     except Exception, e:
