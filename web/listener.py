@@ -48,6 +48,8 @@ def index():
 def feed_video():
     if has_login():
         return Response(generate_frame(), mimetype='multipart/x-mixed-replace; boundary=frame')
+    else:
+        return redirect(url_for('index'))
 
 
 @app.route('/shot_screen', methods=['GET'])
@@ -55,6 +57,8 @@ def shot_screen():
     if has_login():
         img_stream = Camera.shot_screen()
         return Response(img_stream, mimetype='image/png')
+    else:
+        return redirect(url_for('index'))
 
 
 @app.route("/position", methods=["GET", "POST"])
@@ -68,6 +72,8 @@ def get_position():
         img_stream = Camera.get_position()
         print 'test'
         return Response(img_stream, mimetype='image/png')
+    else:
+        return redirect(url_for('index'))
 
 
 @app.route("/shot_camera", methods=["GET"])
@@ -75,6 +81,8 @@ def shot_camera():
     if has_login():
         img_stream = Camera.shot_camera()
         return Response(img_stream, mimetype='image/png')
+    else:
+        return redirect(url_for('index'))
 
 
 @app.route('/lock', methods=["POST"])
@@ -83,6 +91,8 @@ def lock():
         manager = Manager()
         manager.lock()
         return 'sucess'
+    else:
+        return redirect(url_for('index'))
 
 
 @app.route('/shut_down', methods=["POST"])
@@ -91,6 +101,8 @@ def shut_down():
         manager = Manager()
         manager.shutdown_after(3)
         return 'success'
+    else:
+        return redirect(url_for('index'))
 
 
 @app.route('/execute_cmd', methods=['POST'])
@@ -100,6 +112,8 @@ def execute_cmd():
         cmd = data['cmd']
         output = Manager.execute(cmd)
         return output
+    else:
+        return redirect(url_for('index'))
 
 
 def generate_frame():

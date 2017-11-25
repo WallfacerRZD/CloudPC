@@ -62,9 +62,7 @@
                 obj.setAttribute("value", "OFF");
             }
             else if (obj.getAttribute("value") === "OFF") {
-                display.innerHTML = '';
-                obj.innerHTML = "打开摄像头";
-                obj.setAttribute("value", "ON");
+                location.reload();
             }
         };
 
@@ -247,7 +245,7 @@
                           style="color: rgb(255, 255, 255);margin-left: 3px">返回</span>
                         <div class="row">
                             <div class="col-md-12 col-xs-12" style="text-align: center">
-                                <button id="switch1" class="btn btn-info btn-lg" value="ON"
+                                <button id="switch1" class="btn btn-info btn-sm" value="ON"
                                         onclick="openCamera(this)">
                                     打开摄像头
                                 </button>
@@ -255,13 +253,13 @@
                         </div>
                         <div class="row" style="margin-top: 3%">
                             <div class="col-xs-6 col-md-6" style="text-align: center">
-                                <button id="switch2" class="btn btn-info btn-lg" value="ON"
+                                <button id="switch2" class="btn btn-info btn-sm" value="ON"
                                         onclick="shot_camera(this)">
                                     摄像头快照
                                 </button>
                             </div>
                             <div class="col-xs-6 col-md-6" style="text-align: center">
-                                <button id="switch3" class="btn btn-info btn-lg" value="ON" onclick="shot_screen(this)">
+                                <button id="switch3" class="btn btn-info btn-sm" value="ON" onclick="shot_screen(this)">
                                     屏幕快照
                                 </button>
                             </div>
