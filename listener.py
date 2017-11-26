@@ -14,15 +14,11 @@ from utils.manager import Manager
 from utils import sender
 from subprocess import Popen, PIPE
 import socket
+from config import config
 
 app = Flask(__name__)
 app.secret_key = 'salkf12323!#!@#$!%fa!@#!4sdzGF'
 
-config = {}
-with open('config.json', 'r') as f:
-    config = load(f)
-user = config['user']
-password = config['password']
 
 
 def has_login():
@@ -39,9 +35,9 @@ def login():
 @app.route("/", methods=["POST", "GET"])
 def index():
     if has_login():
-        return send_file("static/index.html")
+        return send_file("./static/index.html")
     else:
-        return send_file('static/login.html')
+        return send_file('./static/login.html')
 
 
 @app.route("/feed_video", methods=["GET"])
@@ -70,7 +66,6 @@ def position():
 def get_position():
     if has_login():
         img_stream = Camera.get_position()
-        print 'test'
         return Response(img_stream, mimetype='image/png')
     else:
         return redirect(url_for('index'))

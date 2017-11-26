@@ -38,8 +38,10 @@ class Manager(object):
                 else:
                     return (u'您执行的命令是:   %s\n' % cmd).encode('utf-8') + u'执行成功,无输出信息'
         except Exception, e:
-            print e
-            return u'出错啦!!'
+            if cmd:
+                return u'出错啦!!'
+            else:
+                return u'您还没有输入命令哦'
 
 
 if __name__ == "__main__":
