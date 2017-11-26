@@ -20,15 +20,15 @@
 
 ## 使用方法
 1. 开启qq邮箱POP3/SMTP服务
-![](https://github.com/WallfacerRZD/CloudPC/blob/master/pictures/0.JPG)
-![](https://github.com/WallfacerRZD/CloudPC/blob/master/pictures/1.JPG)
-根据提示发送短信
-![](https://github.com/WallfacerRZD/CloudPC/blob/master/pictures/2.JPG)
-复制授权码
-![](https://github.com/WallfacerRZD/CloudPC/blob/master/pictures/3.JPG)
+- ![](https://github.com/WallfacerRZD/CloudPC/blob/master/pictures/0.JPG)
+- ![](https://github.com/WallfacerRZD/CloudPC/blob/master/pictures/1.JPG)
+- 根据提示发送短信
+- ![](https://github.com/WallfacerRZD/CloudPC/blob/master/pictures/2.JPG)
+- 复制授权码
+- ![](https://github.com/WallfacerRZD/CloudPC/blob/master/pictures/3.JPG)
 
 2. 填写配置文件
-![](https://github.com/WallfacerRZD/CloudPC/blob/master/pictures/4.JPG)
+- ![](https://github.com/WallfacerRZD/CloudPC/blob/master/pictures/4.JPG)
 
 3. 有python2.7环境的运行listener.py,没有python环境的运行listener.exe
 
