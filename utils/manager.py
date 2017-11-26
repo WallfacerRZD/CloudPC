@@ -42,8 +42,3 @@ class Manager(object):
                 return u'出错啦!!'
             else:
                 return u'您还没有输入命令哦'
-
-
-if __name__ == "__main__":
-    manager = Manager()
-    manager.execute('fir')

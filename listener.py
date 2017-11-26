@@ -7,7 +7,7 @@ import os
 current_path = os.path.abspath('.')
 sys.path.append(current_path)
 
-from json import loads, load, dump
+from json import loads
 from flask import Flask, send_file, request, Response, session, redirect, url_for
 from utils.camera import Camera
 from utils.manager import Manager
@@ -18,7 +18,6 @@ from config import config
 
 app = Flask(__name__)
 app.secret_key = 'salkf12323!#!@#$!%fa!@#!4sdzGF'
-
 
 
 def has_login():
@@ -138,8 +137,8 @@ if __name__ == "__main__":
 
     # 发送邮件
     try:
-        # mail_sender = sender.Sender(user, password)
-        # mail_sender.send_text('CloudPC', 'CloudPC正在运行,请访问:\n%s:2333' % myaddr, 'plain')
+        mail_sender = sender.Sender(config['user'], config['password'])
+        mail_sender.send_text('CloudPC', 'CloudPC正在运行,请访问:\n%s:2333' % myaddr, 'plain')
         # 启动
         app.run(host='0.0.0.0', port=2333, threaded=True)
     except Exception, e:

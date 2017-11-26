@@ -5,5 +5,5 @@ config = {
     # 申请的秘钥
     "password": "mjjaepxufcjibbce",
     # 登录口令
-    "key": "test",
+    "key": "testtest",
 }

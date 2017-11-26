@@ -33,7 +33,7 @@ class Camera(object):
             if not camera.isOpened():
                 raise RuntimeError("Can't open camera")
             ok, frame = camera.read()
-            frame = resize(frame, (1200, 900), interpolation=INTER_CUBIC)
+            frame = resize(frame, (1200, 900))
             img_stream = imencode('.jpg', frame)[1].tobytes()
             return img_stream
         except Exception, e:

@@ -27,7 +27,6 @@ class Sender(object):
         smtpObj.login(self.mail_user, self.mail_pass)
         smtpObj.sendmail(self.sender, self.receivers, message.as_string())
         smtpObj.quit()
-        print "邮件发送成功"
 
 
 if __name__ == "__main__":
