@@ -7,14 +7,17 @@ import os
 current_path = os.path.abspath('.')
 sys.path.append(current_path)
 
-from json import loads
+from json import load, loads
 from flask import Flask, send_file, request, Response, session, redirect, url_for
 from utils.camera import Camera
 from utils.manager import Manager
 from utils import sender
 from subprocess import Popen, PIPE
 import socket
-from config import config
+
+config = {}
+with open('config.json', 'r') as f:
+    config = load(f)
 
 app = Flask(__name__)
 app.secret_key = 'salkf12323!#!@#$!%fa!@#!4sdzGF'
@@ -143,5 +146,4 @@ if __name__ == "__main__":
         app.run(host='0.0.0.0', port=2333, threaded=True)
     except Exception, e:
         print '程序启动失败, 请检查配置文件'
-        print e
         exit()

@@ -3,9 +3,11 @@
 <head>
     <meta charset="utf-8">
     <title>CloudPC</title>
-    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.js"></script>
-    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet">
+	<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdn.bootcss.com/Swiper/4.0.5/js/swiper.js"></script>
+    <link href="https://cdn.bootcss.com/Swiper/4.0.5/css/swiper.min.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <style>
         body {
@@ -149,32 +151,24 @@
     </div>
     <div class="row">
         <div id="main" class="col-md-6 col-md-offset-3 col-xs-10 col-xs-offset-1">
-            <div id="myCarousel" class="carousel slide" data-interval="false" style="height: 100%;">
-                <div class="carousel-inner" style="height: 100%">
-                    <div class="item active" style="height: 100%">
+            <div class="swiper-container" id="myCarousel"  data-interval="false" style="height: 100%;">
+                <div  class="swiper-wrapper" style="height: 100%">
+                    <div class="swiper-slide" style="height: 100%">
                         <div class="image"
-                             style="background-image:url('../static/pictures/logistic.png');float: left; margin-left: 6%;margin-top: 6%"
-                             data-slide-to="1"
-                             data-target="#myCarousel"></div>
+                             style="background-image:url('../static/pictures/logistic.png');float: left; margin-left: 6%;margin-top: 6%"></div>
                         <div class="image"
-                             style="background-image:url('../static/pictures/task.png');float: right; margin-right: 6%;margin-top: 6%"
-                             data-slide-to="2"
-                             data-target="#myCarousel"></div>
+                             style="background-image:url('../static/pictures/task.png');float: right; margin-right: 6%;margin-top: 6%"></div>
                         <div class="image"
-                             style="background-image:url('../static/pictures/cmd.png');float: left; margin-left: 6%;margin-bottom: 6%"
-                             data-slide-to="3"
-                             data-target="#myCarousel"></div>
+                             style="background-image:url('../static/pictures/cmd.png');float: left; margin-left: 6%;margin-bottom: 6%"></div>
                         <div class="image"
-                             style="background-image:url('../static/pictures/camera.png');float: right; margin-right: 6%;margin-bottom: 6%"
-                             data-slide-to="4"
-                             data-target="#myCarousel"></div>
+                             style="background-image:url('../static/pictures/camera.png');float: right; margin-right: 6%;margin-bottom: 6%"></div>
                     </div>
 
                     <!--定位模块-->
-                    <div class="item" style="height: 100%">
+                    <div class="swiper-slide" style="height: 100%">
                         <div class="block">
-                        <span data-target="#myCarousel" data-slide-to="0" class="glyphicon glyphicon-hand-left"
-                              style="color: rgb(255, 255, 255);margin-left: 3px">返回</span>
+                        <!--<span data-target="#myCarousel" data-slide-to="0" class="glyphicon glyphicon-hand-left"-->
+                              <!--style="color: rgb(255, 255, 255);margin-left: 3px">返回</span>-->
                             <div class="row">
                                 <div class="col-md-6 col-md-offset-3 col-xs-10 col-xs-offset-1"
                                      style="text-align: center;margin-top: 5%">
@@ -191,10 +185,9 @@
                     </div>
 
                     <!--控制模块-->
-                    <div id="task" class="item" style="height: 100%">
-                    <span data-target="#myCarousel" data-slide-to="0" class="glyphicon glyphicon-hand-left"
-                          style="color: rgb(255, 255, 255);margin-left: 3px">返回</span>
-                        1
+                    <div id="task" class="swiper-slide" style="height: 100%">
+                    <!--<span data-target="#myCarousel" data-slide-to="0" class="glyphicon glyphicon-hand-left"-->
+                          <!--style="color: rgb(255, 255, 255);margin-left: 3px">返回</span>-->
                         <div class="row">
                             <div class="col-md-4 col-md-offset-4 col-xs-12" style="text-align: center; margin-top: 15%">
                                 <button class="btn btn-block btn-info btn-lg" onclick="shutDown()">关机</button>
@@ -208,10 +201,10 @@
                     </div>
 
                     <!--命令行模块-->
-                    <div class="item" style="height: 100%">
+                    <div class="swiper-slide" style="height: 100%">
                         <div class="block">
-                        <span data-target="#myCarousel" data-slide-to="0" class="glyphicon glyphicon-hand-left"
-                              style="color: rgb(255, 255, 255);margin-left: 3px">返回</span>
+                        <!--<span data-target="#myCarousel" data-slide-to="0" class="glyphicon glyphicon-hand-left"-->
+                              <!--style="color: rgb(255, 255, 255);margin-left: 3px">返回</span>-->
                             <div class="row" style="margin-top: 10%">
                                 <div class="col-md-12 col-xs-12" style="text-align: center">
                                     <input id="input" class="input-lg" type="text" placeholder="在此输入CMD命令"><br>
@@ -222,9 +215,9 @@
                         </div>
                     </div>
                     <!--摄像机模块-->
-                    <div class="item" style="height: 100%">
-                    <span data-target="#myCarousel" data-slide-to="0" class="glyphicon glyphicon-hand-left"
-                          style="color: rgb(255, 255, 255);margin-left: 3px">返回</span>
+                    <div class="swiper-slide" style="height: 100%">
+                    <!--<span data-target="#myCarousel" data-slide-to="0" class="glyphicon glyphicon-hand-left"-->
+                          <!--style="color: rgb(255, 255, 255);margin-left: 3px">返回</span>-->
                         <div class="row">
                             <div class="col-md-12 col-xs-12" style="text-align: center">
                                 <button id="switch1" class="btn btn-info btn-sm" value="ON"
@@ -254,6 +247,18 @@
         </div>
     </div>
 </div>
+<script language="javascript">
+var mySwiper = new Swiper('.swiper-container',{
+    loop: 'true',
+    effect : 'cube',
+    cube: {
+      slideShadows: true,
+      shadow: true,
+      shadowOffset: 100,
+      shadowScale: 0.6
+    }
+})
+</script>
 </body>
 <style>
 

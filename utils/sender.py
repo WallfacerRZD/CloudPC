@@ -3,10 +3,7 @@
 
 import smtplib
 from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
 from email.header import Header
-from email.mime.base import MIMEBase
-from email import encoders
 
 
 # 第三方 SMTP 服务
@@ -29,6 +26,3 @@ class Sender(object):
         smtpObj.quit()
 
 
-if __name__ == "__main__":
-    test = Sender()
-    test.send_text("CloudPC", "test", "plain")
