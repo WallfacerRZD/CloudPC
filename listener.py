@@ -15,9 +15,13 @@ from utils import sender
 from subprocess import Popen, PIPE
 import socket
 
+from codecs import BOM_UTF8
+
 config = {}
-with open('config.txt', 'r') as f:
-    config = load(f)
+with open('config.json', 'r') as f:
+    text = f.read()
+    text = text[3:] if text[:3] == BOM_UTF8 else text
+    config = loads(text)
 
 app = Flask(__name__)
 app.secret_key = 'salkf12323!#!@#$!%fa!@#!4sdzGF'
