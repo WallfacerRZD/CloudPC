@@ -145,5 +145,6 @@ if __name__ == "__main__":
         # 启动
         app.run(host='0.0.0.0', port=2333, threaded=True)
     except Exception, e:
-        print '程序启动失败, 请检查配置文件'
-        exit()
+        print '程序启动失败, 请检查配置文件, 按任意键退出程序'
+        raw_input()
+        exit(1)
