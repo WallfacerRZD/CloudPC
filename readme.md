@@ -27,7 +27,7 @@
 - 复制授权码
 - ![](https://github.com/WallfacerRZD/CloudPC/blob/master/pictures/3.JPG)
 
-2. 填写配置文件(用utf-8无BOM模式保存)
+2. 用记事本打开填写配置文件
 - ![](https://github.com/WallfacerRZD/CloudPC/blob/master/pictures/4.JPG)
 
 3. 有python2.7环境的运行listener.py,没有python环境的运行listener.exe
