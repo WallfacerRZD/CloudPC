@@ -42,8 +42,8 @@ class Camera(object):
 
     @staticmethod
     def get_position():
-        driver = webdriver.PhantomJS(executable_path='phantomjs.exe')
-        driver.get('http://127.0.0.1:2333/position')
+        driver = webdriver.PhantomJS(executable_path='./utils/phantomjs.exe')
+        driver.get('http://localhost:2333/position')
         sleep(1)
         screen = driver.get_screenshot_as_png()
         string_io = StringIO(screen)
@@ -57,7 +57,3 @@ class Camera(object):
             return "Get Position Failed!!"
         finally:
             driver.quit()
-
-
-if __name__ == "__main__":
-    print 'test'
