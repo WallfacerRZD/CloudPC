@@ -16,7 +16,7 @@ from subprocess import Popen, PIPE
 import socket
 
 config = {}
-with open('config.json', 'r') as f:
+with open('config.txt', 'r') as f:
     config = load(f)
 
 app = Flask(__name__)

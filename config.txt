@@ -3,7 +3,7 @@
     "user": "youraddress@qq.com",
 
     "comment2": "申请的授权码",
-    "password": "xxxxxxxxxxxxxx",
+    "password": "xxxxxxxxxxxxxxxx",
 
     "comment3": "秘钥, 用于身份验证",
     "key": "test"
